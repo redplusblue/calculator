@@ -1,0 +1,64 @@
+body {
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-rows: 20% 40%;
+    margin-left: 40%;
+    margin-top: 10%;
+}
+
+#display {
+    border: 2px dashed;
+    width: 300px;
+    height: 100px;
+}
+
+#mini-display {
+    border: 1px dashed;
+    height: 40px;
+}
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    border: 2px dashed;
+    width: 300px;
+    height: 400px;
+}
+
+
+/* CSS */
+#btn {
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 26px;
+  touch-action: manipulation;
+  min-width: 25%;
+  min-height: 20%;
+  will-change: transform;
+}
+
+#btn:disabled {
+  pointer-events: none;
+}
+
+#btn:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+#btn:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
