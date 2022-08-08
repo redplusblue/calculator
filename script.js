@@ -42,22 +42,27 @@ function operator(o) {
                 mainDisplay.innerText += o;
             }
         } else {
+            mainDisplay.innerText += o;
             if(currentOperator.length == 0){
-                operandOne = mainDisplay.innerText; 
+                //Change if condition
+                operandOne = mainDisplay.innerText.replace(o, ''); 
                 currentOperator = o;
                 console.log(operandOne)                  ///////////////////////////////////////////
                 console.log(currentOperator)             ///////////////////////////////////////////
+                miniDisplay.innerText += mainDisplay.innerText;
+                mainDisplay.innerText = '';
             } else {
-                operandTwo = mainDisplay.innerText;
-                console.log(operandTwo)                  ///////////////////////////////////////////
-                result = operate(currentOperator, operandOne, operandTwo)
-                miniDisplay.innerText = result;
-            }
+                //add another if for new operator, set operandOne = result from prev calculation
+                    operandTwo = mainDisplay.innerText.replace(o, '');
+                    console.log(operandTwo)                  ///////////////////////////////////////////
+                    result = operate(currentOperator, operandOne, operandTwo)
+                    miniDisplay.innerText = result;
+                    mainDisplay.innerText = '';
+                    currentOperator = o;
+        }
             ///////////////////////////////// Create a clause for %
         //Incorporate into the operating if-else      
-        mainDisplay.innerText += o;
-        miniDisplay.innerText += mainDisplay.innerText;
-        mainDisplay.innerText = '';
+        //mainDisplay.innerText = '';
         }
     }
 }
