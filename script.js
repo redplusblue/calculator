@@ -1,50 +1,63 @@
-mainDisplay = document.getElementById('main-display')
-miniDisplay = document.getElementById('mini-display')
+let mainDisplay = document.getElementById('main-display');
+let miniDisplay = document.getElementById('mini-display');
+
+let operators = ['%', '÷', '×', '+', '-'];
+let currentOperator = '';
 
 function copyText(display){
-    text = ''
+    text = '';
     if(miniDisplay.innerText == '' || mainDisplay.innerText == ''){
-        alert("Cannot copy empty element!")
-    }
-    if(display == 'mini'){
-        text = miniDisplay.innerText
-        navigator.clipboard.writeText(text)
-        alert(`Copied ${text} to clipboard!`)
+        alert("Cannot copy empty element!");
     } else {
-        text = mainDisplay.innerText
-        navigator.clipboard.writeText(text)
-        alert(`Copied ${text} to clipboard!`)
+    if(display == 'mini'){
+        text = miniDisplay.innerText;
+        navigator.clipboard.writeText(text);
+        alert(`Copied ${text} to clipboard!`);
+    } else {
+        text = mainDisplay.innerText;
+        navigator.clipboard.writeText(text);
+        alert(`Copied ${text} to clipboard!`);
     }
+}
 }
 
 function clearAll() {
     mainDisplay.innerText = '';
     miniDisplay.innerText = mainDisplay.innerText;
+    currentOperator = '';
 }
 
 function digit(d){
     mainDisplay.innerText += d;
-    miniDisplay.innerText += d;
 }
 
 function operator(o) {
-    console.log(0)
     if(miniDisplay.innerText.length == 0 && mainDisplay.innerText.length == 0) {
         return
     } else {
         if(o == '.'){
-            if(mainDisplay.innerText.includes('.') || miniDisplay.innerText.includes('.')){
-                // FIX THIS
-                // if the number already includes . then no more but display can have more than 1 .
+            if(mainDisplay.innerText.includes('.')){
                 return
             } else {
                 mainDisplay.innerText += o;
-                miniDisplay.innerText += o;
-                
             }
         } else {
+            if(currentOperator.length == 0){
+                operandOne = mainDisplay.innerText; 
+                currentOperator = o;
+                console.log(operandOne)                  ///////////////////////////////////////////
+                console.log(currentOperator)             ///////////////////////////////////////////
+            } else {
+                operandTwo = mainDisplay.innerText;
+                console.log(operandTwo)                  ///////////////////////////////////////////
+                result = operate(currentOperator, operandOne, operandTwo)
+                miniDisplay.innerText = result;
+            }
+            ///////////////////////////////// Create a clause for %
+        //Incorporate into the operating if-else      
+        mainDisplay.innerText += o;
+        miniDisplay.innerText += mainDisplay.innerText;
         mainDisplay.innerText = '';
-        miniDisplay.innerText += o;
         }
     }
 }
@@ -78,5 +91,34 @@ function clearLast() {
     }
 }
 
+function operate(currentOperator, operandOne, operandTwo) {
+    operandOne = Number(operandOne)
+    operandTwo = Number(operandTwo)
+    if(currentOperator == '÷') {
+        return divide(operandOne, operandTwo);
+    } else if (currentOperator == '×') {
+        return multiply(operandOne, operandTwo);
+    } else if (currentOperator == '+') {
+        return add(operandOne, operandTwo);
+    } else if (currentOperator == '-') {
+        return subtract(operandOne, operandTwo);
+    }
+
+    function divide(a, b){
+        return a/b;
+    }
+
+    function multiply(a, b){
+        return a*b;
+    }
+
+    function add(a, b){
+        return a+b;
+    }
+
+    function subtract(a, b) {
+        return a-b;
+    }
+}
 
 
