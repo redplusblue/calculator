@@ -26,7 +26,7 @@ function copyText(display){
 
 function clearAll() {
     mainDisplay.innerText = '';
-    miniDisplay.innerText = mainDisplay.innerText;
+    miniDisplay.innerText = '';
     currentOperator = '';
     result = '';
 }
@@ -70,53 +70,23 @@ function operator(o) {
                 mainDisplay.innerText = ''
             } else {
                 if (checkOperator(miniDisplay.innerText)) {
-                    operandOne = miniDisplay.innerText.slice(0, -2);
-                    operatorSymbol = miniDisplay.innerText.slice(-1);
+
                     if(mainDisplay.innerText.length != 0) {
-                        operandTwo = mainDisplay.innerText;
-                        result = operate(operatorSymbol, operandOne, operandTwo);
-                        miniDisplay.innerText = result;
-                        mainDisplay.innerText = '';
+                        evaluateOperation()
+                        //Does not come back after evaluate operation, see whats up
+                        miniDisplay += o;
                         //miniDisplay.innerText += o;
-                        //Add console log statements, CheckOperator not behaving as expected
+                        // Evaluate operation using the function because = works fine
                     }
                 } else {
+                    console.log(checkOperator(miniDisplay.innerText))
+                    //console.log(miniDisplay.innerText.includes(operators[1]))
                     operandOne = miniDisplay.innerText;
-                    miniDisplay.innerText += o;
+                    //miniDisplay.innerText += o;
                 }
             }
             
-            /*
-            if(currentOperator.length == 0){
-                //Change if condition
-                operandOne = mainDisplay.innerText.replace(o, ''); 
-                currentOperator = o;
-                console.log(operandOne)                  ///////////////////////////////////////////
-                console.log(currentOperator)             ///////////////////////////////////////////
-                miniDisplay.innerText += mainDisplay.innerText;
-                mainDisplay.innerText = '';
-            } else {
-                if(currentOperator != o) {
-                //add another if for new operator, set operandOne = result from prev calculation
-                    operandTwo = mainDisplay.innerText.replace(o, '');
-                    console.log(operandTwo)                  ///////////////////////////////////////////
-                    result = operate(currentOperator, operandOne, operandTwo)
-                    miniDisplay.innerText = result;
-                    mainDisplay.innerText = '';
-                }
-                else {
-                    miniDisplay.innerText += o;
-                    operandOne = result;
-                    operandTwo = mainDisplay.innerText
-                    currentOperator = o;
-                    result = operate(currentOperator, operandOne, operandTwo)
-                    miniDisplay.innerText = result;
-                    mainDisplay.innerText = '';
-                }
-        }*/
-            ///////////////////////////////// Create a clause for %
-        //Incorporate into the operating if-else      
-        //mainDisplay.innerText = '';
+            
         }
     }
 }
@@ -183,32 +153,32 @@ function operate(currentOperator, operandOne, operandTwo) {
 function evaluateOperation() {
     if(miniDisplay.innerText.length == 0) {
         miniDisplay.innerText = mainDisplay.innerText;
-        return; 
-    } else if (checkOperator(miniDisplay.innerText && mainDisplay.innerText.length == 0)){
+
+    } else if (checkOperator(miniDisplay.innerText) && mainDisplay.innerText.length == 0){
         return;
     } else {
-        operator = miniDisplay.innerText;
-        console.log(operator)
-        numOne = operator.slice(0, -1);
+        operatorSymbol = miniDisplay.innerText;
+        console.log(operatorSymbol)
+        numOne = operatorSymbol.slice(0, -1);
         console.log(numOne)
-        operator = operator.slice(-1);
-        console.log(operator)
+        operatorSymbol = operatorSymbol.slice(-1);
+        console.log(operatorSymbol)
         numTwo = mainDisplay.innerText;
         console.log(numTwo)
-        result = operate(operator, numOne, numTwo);
+        result = operate(operatorSymbol, numOne, numTwo);
         console.log(result)
         mainDisplay.innerText = ''
         miniDisplay.innerText = result;
-        return;
 }}
 
 function checkOperator(string) {
-    string = String(string)
+    isTrue = false;
     operators.forEach(element => {
-        if(string.includes(element)) {
-            return true;
-        } return false;
+        if(string.includes(element)){
+            isTrue = true;
+        }
     })
+    return isTrue;
 }
 
 
