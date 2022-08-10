@@ -20,10 +20,12 @@ document.addEventListener('keydown', (e) => {
 } )
 */
 
+// Testcase -6-6 leads to NaN, operator being appended before evalution in operator() 
+
 function copyText(display) {
     text = '';
     if (display == 'mini') {
-        if (miniDisplay.innerText.length = 0) {
+        if (miniDisplay.innerText.length == 0) {
             alert("Cannot copy empty field!")
         } else {
             text = miniDisplay.innerText;
@@ -31,10 +33,9 @@ function copyText(display) {
             alert(`Copied ${text} to clipboard!`);
         }
     } else {
-        if (mainDisplay.innerText.length = 0) {
+        if (mainDisplay.innerText.length == 0) {
             alert("Cannot copy empty field!")
         } else {
-            checkIfEmpty(display)
             text = mainDisplay.innerText;
             navigator.clipboard.writeText(text);
             alert(`Copied ${text} to clipboard!`);
@@ -56,7 +57,9 @@ function digit(d) {
 
 function operator(o) {
     if (miniDisplay.innerText.length == 0 && mainDisplay.innerText.length == 0) {
-        return
+        if(o == '-') {
+            changeSign()
+        }
     } else {
         if (o == '.') {
             if (mainDisplay.innerText.includes('.')) {
@@ -68,6 +71,9 @@ function operator(o) {
             evaluateOperation()
         } else {
             if (miniDisplay.innerText.length == 0) {
+                if(mainDisplay.innerText == '-') {
+                    return;
+                }
                 mainDisplay.innerText += o;
                 miniDisplay.innerText += mainDisplay.innerText;
                 mainDisplay.innerText = ''
@@ -161,10 +167,15 @@ function evaluateOperation() {
         return;
     }else {
         operatorSymbol = miniDisplay.innerText;
+        //console.log(operatorSymbol)
         numOne = operatorSymbol.slice(0, -1);
+        //console.log(numOne)
         operatorSymbol = operatorSymbol.slice(-1);
+        //console.log(operatorSymbol)
         numTwo = mainDisplay.innerText;
+        //console.log(numTwo)
         result = operate(operatorSymbol, numOne, numTwo);
+        //console.log(result)
         mainDisplay.innerText = ''
         miniDisplay.innerText = Math.floor(Number(result) * 100) / 100;
     }
@@ -182,9 +193,12 @@ function checkOperator(string) {
 
 function changeSign() {
     let displayText = mainDisplay.innerText;
-    if(displayText == 0) {
-        return
-    } else {
+    if(displayText.length == 0) {
+        mainDisplay.innerText += '-'; 
+    } else if (displayText.length == 1 && displayText == '-'){
+        return;
+    } 
+    else {
         if(displayText[0] == '-') {
             displayText = Number(displayText) * -1;
             mainDisplay.innerText = displayText;  
