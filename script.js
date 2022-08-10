@@ -7,6 +7,19 @@ let operandTwo = ''
 let currentOperator = '';
 let result;
 
+/*
+document.addEventListener('keydown', (e) => {
+    let keyCode = e.key;
+    //Work on keycodes
+    console.log(keyCode)
+    if(keyCode.includes("Numpad" && keyCode.length == 7)) {
+        digit(keyCode.slice(-1))
+    } else if(keyCode == 'Backspace' || keyCode == 'Delete') {
+        clearLast()
+    } 
+} )
+*/
+
 function copyText(display) {
     text = '';
     if (display == 'mini') {
@@ -59,6 +72,11 @@ function operator(o) {
                 miniDisplay.innerText += mainDisplay.innerText;
                 mainDisplay.innerText = ''
             } else {
+                displayText = miniDisplay.innerText;
+                if (displayText[0] == '-')
+                {
+                    miniDisplay.innerText += o;
+                }
                 if (checkOperator(miniDisplay.innerText)) {
                     if (mainDisplay.innerText.length != 0) {
                         evaluateOperation()
@@ -136,11 +154,12 @@ function operate(currentOperator, operandOne, operandTwo) {
 
 function evaluateOperation() {
     if (miniDisplay.innerText.length == 0) {
-        miniDisplay.innerText = mainDisplay.innerText;
-
+        return;
     } else if (checkOperator(miniDisplay.innerText) && mainDisplay.innerText.length == 0) {
         return;
-    } else {
+    } else if (!checkOperator(miniDisplay.innerText) && mainDisplay.innerText.length != 0) {
+        return;
+    }else {
         operatorSymbol = miniDisplay.innerText;
         numOne = operatorSymbol.slice(0, -1);
         operatorSymbol = operatorSymbol.slice(-1);
