@@ -1,28 +1,32 @@
 let mainDisplay = document.getElementById('main-display');
 let miniDisplay = document.getElementById('mini-display');
 
-let operators = ['%', '÷', '×', '+', '-'];
+let operators = ['%', '÷', '×', '+', '-', '.'];
 let operandOne = ''
 let operandTwo = ''
 let currentOperator = '';
 let result;
+let patternNum = /^[0-9]$/gm;
 
-//Implement Keyboard support
-/*
+// Keyboard support
 document.addEventListener('keydown', (e) => {
     let keyCode = e.key;
-    //Work on keycodes
-    console.log(keyCode)
-    if(keyCode.includes("Numpad" && keyCode.length == 7)) {
-        digit(keyCode.slice(-1))
+    if(keyCode.match(patternNum)) {
+        digit(keyCode)
     } else if(keyCode == 'Backspace' || keyCode == 'Delete') {
         clearLast()
-    } 
+    } else if(checkOperator(keyCode)) {
+        operator(keyCode)
+    } else if (keyCode == '/') {
+        operator('÷')
+    } else if (keyCode == '*') {
+        operator('×')
+    } else if(keyCode == 'Enter') {
+        evaluateOperation()    
+    }
 } )
-*/
 
-
-
+// Copy text on hover
 function copyText(display) {
     text = '';
     if (display == 'mini') {
@@ -44,7 +48,7 @@ function copyText(display) {
     }
 }
 
-
+// AC button
 function clearAll() {
     mainDisplay.innerText = '';
     miniDisplay.innerText = '';
@@ -52,10 +56,12 @@ function clearAll() {
     result = undefined;
 }
 
+// Numbers 
 function digit(d) {
     mainDisplay.innerText += d;
 }
 
+// Operators
 function operator(o) {
     if (miniDisplay.innerText.length == 0 && mainDisplay.innerText.length == 0) {
         if(o == '-') {
@@ -73,6 +79,7 @@ function operator(o) {
         } else {
             if (miniDisplay.innerText.length == 0) {
                 if(mainDisplay.innerText == '-') {
+                    mainDisplay.innerText = '';
                     return;
                 }
                 mainDisplay.innerText += o;
@@ -83,10 +90,8 @@ function operator(o) {
                 if (displayText[0] == '-')
                 {
                     possibleOperator = displayText.charAt(displayText.length-1)
-                    //console.log("P:" + possibleOperator)
                     if (checkOperator(possibleOperator)) {
                         evaluateOperation()
-                        //miniDisplay.innerText += o;
                         return;
                     }
                     else {
@@ -107,6 +112,7 @@ function operator(o) {
     }
 }
 
+// Clear button
 function clearLast() {
     if (mainDisplay.innerText.length == 0 && miniDisplay.innerText.length != 0) {
         let toEval = miniDisplay.innerText;
@@ -131,6 +137,7 @@ function clearLast() {
     }
 }
 
+// Math
 function operate(currentOperator, operandOne, operandTwo) {
     operandOne = Number(operandOne)
     operandTwo = Number(operandTwo)
@@ -176,20 +183,16 @@ function evaluateOperation() {
         return;
     }else {
         operatorSymbol = miniDisplay.innerText;
-        //console.log(operatorSymbol)
         numOne = operatorSymbol.slice(0, -1);
-        //console.log(numOne)
         operatorSymbol = operatorSymbol.slice(-1);
-        //console.log(operatorSymbol)
         numTwo = mainDisplay.innerText;
-        //console.log(numTwo)
         result = operate(operatorSymbol, numOne, numTwo);
-        //console.log(result)
         mainDisplay.innerText = ''
         miniDisplay.innerText = Math.floor(Number(result) * 100) / 100;
     }
 }
 
+//Check if the string is an operator
 function checkOperator(string) {
     isTrue = false;
     operators.forEach(element => {
@@ -200,11 +203,13 @@ function checkOperator(string) {
     return isTrue;
 }
 
+// +/- button
 function changeSign() {
     let displayText = mainDisplay.innerText;
     if(displayText.length == 0) {
         mainDisplay.innerText += '-'; 
     } else if (displayText.length == 1 && displayText == '-'){
+        mainDisplay.innerText = '';
         return;
     } 
     else {
