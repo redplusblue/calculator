@@ -96,14 +96,20 @@ body {
     }   
 }
 
+#footer-container{
+  display: flex;
+  justify-content: left;
+}
+
 footer {
+  margin-left: 8%;
+  position : absolute;
+  bottom : 5px;
+  height : fit-content;
   font-size: 23px;
-  position: fixed;
-  bottom: 5px;
-  margin-left: 8.5%;
   padding: 1px;
   border: 2px solid black;
-  border-radius: 15%;
+  border-radius: 25%;
 }
 
 .footer :active, :focus, :link, :visited{
