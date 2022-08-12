@@ -95,3 +95,27 @@ body {
       margin-top: 0;
     }   
 }
+
+footer {
+  font-size: 23px;
+  position: fixed;
+  bottom: 5px;
+  margin-left: 8.5%;
+  padding: 1px;
+  border: 2px solid black;
+  border-radius: 15%;
+}
+
+.footer :active, :focus, :link, :visited{
+  text-decoration: none;
+  color: black;
+}
+
+footer:hover {
+  background-color: #1A1A1A;
+  border-radius: 0%;
+}
+
+.footer:hover {
+  color: #fff;
+}
