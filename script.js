@@ -7,6 +7,7 @@ let operandTwo = ''
 let currentOperator = '';
 let result;
 
+//Implement Keyboard support
 /*
 document.addEventListener('keydown', (e) => {
     let keyCode = e.key;
@@ -20,7 +21,7 @@ document.addEventListener('keydown', (e) => {
 } )
 */
 
-// Testcase -6-6 leads to NaN, operator being appended before evalution in operator() : fixed, appends too much - if mini display has -ve number
+
 
 function copyText(display) {
     text = '';
@@ -85,11 +86,11 @@ function operator(o) {
                     //console.log("P:" + possibleOperator)
                     if (checkOperator(possibleOperator)) {
                         evaluateOperation()
-                        miniDisplay.innerText += o;
+                        //miniDisplay.innerText += o;
                         return;
                     }
                     else {
-                    miniDisplay.innerText += o;
+                        miniDisplay.innerText += o;
                 }}
                 if (checkOperator(miniDisplay.innerText)) {
                     if (mainDisplay.innerText.length != 0) {
