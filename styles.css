@@ -73,18 +73,18 @@ body {
   will-change: transform;
 }
 
-#btn:disabled, #operator:disabled {
+#btn:disabled, #operator:disabled, #github-btn:disabled {
   pointer-events: none;
 }
 
-#btn:hover, #operator:hover {
+#btn:hover, #operator:hover, #github-btn:hover {
   color: #fff;
   background-color: #1A1A1A;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-0.5px);
 }
 
-#btn:active, #operator:active {
+#btn:active, #operator:active, #github-btn:active {
   box-shadow: none;
   transform: translateY(0);
 }
