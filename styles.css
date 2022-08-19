@@ -53,7 +53,7 @@ body {
 
 
 /* CSS */
-#btn, #operator {
+#btn, #operator, #github-btn {
   background-color: transparent;
   border: 2px solid #1A1A1A;
   border-radius: 12px;
@@ -93,7 +93,17 @@ body {
     body{
       margin-left: 0;
       margin-top: 0;
+    }
+    footer {
+      margin-bottom: 0;
+      margin-left: 0;
     }   
+}
+
+@media screen and (max-height: 600px) {
+  #github-btn {
+    visibility: hidden;
+  } 
 }
 
 #footer-container{
@@ -108,20 +118,5 @@ footer {
   height : fit-content;
   font-size: 23px;
   padding: 1px;
-  border: 2px solid black;
-  border-radius: 25%;
 }
 
-.footer :active, :focus, :link, :visited{
-  text-decoration: none;
-  color: black;
-}
-
-footer:hover {
-  background-color: #1A1A1A;
-  border-radius: 0%;
-}
-
-.footer:hover {
-  color: #fff;
-}
