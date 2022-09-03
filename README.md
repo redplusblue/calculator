@@ -14,4 +14,4 @@
 ## What I used/learned: 
 1. HTML
 2. CSS: Grid, Flexbox, Inline-block, media queries, :hover, :link
-3. JS: Event Listeners, Array Operations, Function calls, Regular Expressions
+3. JS: Event Listeners, Array Operations, Regular Expressions
